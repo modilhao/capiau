@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap/gsapClient";
+import MatrixBackground from "./MatrixBackground";
 
 export default function HeroMatrix() {
   const containerRef = useRef<HTMLElement | null>(null);
@@ -46,7 +47,7 @@ export default function HeroMatrix() {
         ref={matrixRef}
         className="absolute inset-0 pointer-events-none opacity-0"
       >
-        {/* Matrix effect placeholder - será implementado depois */}
+        <MatrixBackground />
       </div>
 
       {/* Toggle White Label - canto superior direito */}
