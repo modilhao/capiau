@@ -14,7 +14,7 @@ export default function MatrixBackground() {
     if (!ctx) return;
 
     // Configuração inicial
-    const chars = "CAPIAU01#+-/*アカサタナハマヤラワ";
+    const chars = "CAPIAU0123456789#+-/*$&アカサタナハマヤラワ";
     const fontSize = 14;
     let columns = 0;
     let rows = 0;
@@ -65,13 +65,20 @@ export default function MatrixBackground() {
     // Função de animação
     const animate = () => {
       // Desenhar retângulo semi-transparente para criar trail premium
-      ctx.fillStyle = "rgba(0, 15, 0, 0.10)";
+      ctx.fillStyle = "rgba(0, 0, 0, 0.12)";
       ctx.fillRect(0, 0, width, height);
 
       // Configurar glow e cor neon premium
-      ctx.shadowColor = "rgba(120, 255, 180, 0.3)";
-      ctx.shadowBlur = 8;
-      ctx.fillStyle = "rgba(120, 255, 180, 0.95)";
+      ctx.shadowColor = "rgba(255, 255, 255, 0.22)";
+      ctx.shadowBlur = 3;
+
+      // tonalidade variável entre branco e cinza desbotado
+      const baseAlpha = 0.65 + Math.random() * 0.2; // 0.65–0.85
+      const isDim = Math.random() < 0.35; // alguns caracteres mais apagados
+      ctx.fillStyle = isDim
+        ? `rgba(200, 200, 200, ${baseAlpha * 0.6})`
+        : `rgba(245, 245, 245, ${baseAlpha})`;
+
       ctx.font = `${fontSize}px monospace`;
 
       // Loop duplo sobre linhas e colunas da grade

@@ -61,7 +61,7 @@ export default function SectionIntro() {
   return (
     <section
       ref={containerRef}
-      className="relative -mt-24 min-h-[90vh] text-foreground flex items-center"
+      className="relative min-h-screen text-foreground flex items-center"
     >
       {/* overlay de gradiente, mesma vibe da hero */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/95" />

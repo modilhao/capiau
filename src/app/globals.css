@@ -11,3 +11,75 @@
     color: #e5e7eb;            /* texto claro */
   }
 }
+/* Camada do cursor */
+.cursor-layer {
+  pointer-events: none;
+  mix-blend-mode: normal; /* você pode testar 'difference' se quiser mais drama */
+}
+
+/* Nada dentro do cursor captura click */
+.cursor-layer * {
+  pointer-events: none !important;
+}
+
+/* Esconder o cursor padrão apenas em devices com mouse */
+@media (hover: hover) and (pointer: fine) {
+  html,
+  body,
+  * {
+    cursor: none !important;
+  }
+}
+
+/* Texto grande do hover */
+.cursor-hover-text {
+  color: #f9fafb; /* quase branco */
+  font-family: var(--font-inter, system-ui, sans-serif);
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+
+/* Cada caractere animável */
+.char-anim {
+  display: inline-block;
+  position: relative;
+  transition:
+    transform 0.2s ease-out,
+    opacity 0.2s ease-out;
+}
+
+/* Pequeno efeito de “respirar” nas letras quando o texto aparece (opcional) */
+.cursor-hover-text .char-anim {
+  opacity: 0.9;
+}
+.cursor-hover-text .char-anim:nth-child(odd) {
+  transform: translateY(-2px);
+}
+.cursor-hover-text .char-anim:nth-child(even) {
+  transform: translateY(1px);
+}
+
+/* Spotlight do cursor */
+.cursor-spotlight {
+  filter: blur(50px); /* Desfoque suave nas bordas - aumentado para transição mais suave */
+  transform-origin: center center;
+  /* Garantir que o spotlight funcione sobre todos os elementos */
+  isolation: isolate;
+}
+
+/* Ajuste opcional: se quiser um efeito mais dramático de "desbotamento" */
+/* Descomente para escurecer o resto da tela */
+/*
+.cursor-spotlight {
+  background: radial-gradient(
+    circle,
+    transparent 0%,
+    transparent 40%,
+    rgba(2, 6, 23, 0.6) 70%,
+    rgba(2, 6, 23, 0.9) 100%
+  );
+  mix-blend-mode: multiply;
+  filter: blur(60px);
+}
+*/
