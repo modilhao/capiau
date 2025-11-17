@@ -83,3 +83,21 @@
   filter: blur(60px);
 }
 */
+
+/* Typewriter cursor */
+.typewriter-cursor {
+  display: inline-block;
+  font-weight: 300;
+  color: currentColor;
+  animation: typewriter-blink 1s infinite;
+  margin-left: 2px;
+}
+
+@keyframes typewriter-blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}

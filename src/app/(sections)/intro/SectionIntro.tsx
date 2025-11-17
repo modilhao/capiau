@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { gsap, ScrollTrigger } from "@/lib/gsap/gsapClient";
+import { gsap, ScrollTrigger, TextPlugin } from "@/lib/gsap/gsapClient";
 
 export default function SectionIntro() {
   const containerRef = useRef<HTMLElement | null>(null);
+  const subtitleRef = useRef<HTMLParagraphElement | null>(null);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -51,6 +52,75 @@ export default function SectionIntro() {
         },
         "+=0.25" // começa um pouco depois de o container estabilizar
       );
+
+      // Efeito typewriter para o subtítulo "We turn attention into momentum."
+      const fullText = "We turn attention into momentum.";
+      if (subtitleRef.current) {
+        // Estado inicial: texto vazio
+        subtitleRef.current.textContent = "";
+
+        // Criar elemento de cursor separado para animação
+        const cursorElement = document.createElement("span");
+        cursorElement.className = "typewriter-cursor";
+        cursorElement.textContent = "|";
+        cursorElement.style.opacity = "1";
+        subtitleRef.current.appendChild(cursorElement);
+
+        // Animação de cursor piscando
+        gsap.to(cursorElement, {
+          opacity: 0,
+          duration: 0.5,
+          repeat: -1,
+          yoyo: true,
+          ease: "power2.inOut",
+        });
+
+        // Animação typewriter controlada pelo scroll
+        let wasComplete = false;
+        const typewriterTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: container,
+            start: "top 60%",
+            end: "top 20%",
+            scrub: 1.2, // Controle preciso do typewriter
+            onUpdate: (self) => {
+              if (subtitleRef.current && cursorElement) {
+                const progress = self.progress;
+                const charCount = Math.floor(fullText.length * progress);
+                const currentText = fullText.substring(0, charCount);
+                
+                // Atualizar texto mantendo o cursor
+                const textNode = subtitleRef.current.firstChild;
+                if (textNode && textNode.nodeType === Node.TEXT_NODE) {
+                  textNode.textContent = currentText;
+                } else {
+                  subtitleRef.current.insertBefore(
+                    document.createTextNode(currentText),
+                    cursorElement
+                  );
+                }
+
+                // Esconder e remover cursor quando completo
+                if (progress >= 1 && !wasComplete) {
+                  wasComplete = true;
+                  gsap.to(cursorElement, {
+                    opacity: 0,
+                    duration: 0.3,
+                    ease: "power2.out",
+                    onComplete: () => {
+                      if (cursorElement && cursorElement.parentNode) {
+                        cursorElement.remove();
+                      }
+                    },
+                  });
+                } else if (progress < 1 && wasComplete) {
+                  wasComplete = false;
+                }
+              }
+            },
+          },
+        });
+      }
     }, containerRef);
 
     return () => {
@@ -92,8 +162,15 @@ export default function SectionIntro() {
           </h2>
         </div>
 
-        <p className="mt-8 text-lg md:text-2xl text-muted">
-          We turn attention into momentum.
+        <p
+          ref={subtitleRef}
+          className="mt-8 text-lg md:text-2xl text-muted font-light"
+          style={{
+            fontFamily: "monospace",
+            letterSpacing: "0.05em",
+          }}
+        >
+          {/* Texto será preenchido via GSAP typewriter */}
         </p>
       </div>
     </section>
