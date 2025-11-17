@@ -12,9 +12,16 @@ export default function CustomCursor() {
 
   const [mounted, setMounted] = useState(false);
   const [hoverText, setHoverText] = useState<string | null>(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    // Verificar se é dispositivo touch
+    setIsTouchDevice(
+      window.matchMedia("(hover: none), (pointer: coarse)").matches ||
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0
+    );
   }, []);
 
   useEffect(() => {
@@ -166,7 +173,8 @@ export default function CustomCursor() {
     };
   }, [mounted, hoverText]);
 
-  if (!mounted) return null;
+  // Não renderizar em dispositivos touch
+  if (!mounted || isTouchDevice) return null;
 
   return (
     <>
