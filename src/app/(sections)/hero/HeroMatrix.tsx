@@ -111,8 +111,8 @@ export default function HeroMatrix() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen bg-background flex items-center justify-center overflow-hidden"
-    >
+      className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background text-foreground"
+      >
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80 pointer-events-none" />
       <div
         ref={matrixRef}
