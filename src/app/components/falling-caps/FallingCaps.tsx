@@ -44,8 +44,7 @@ export const FallingCaps = () => {
   );
 
   return (
-    // debug={true} can be added to Root to see markers
-    <Scrollytelling.Root end="bottom bottom" debug={{ label: "Falling Caps" }}>
+    <Scrollytelling.Root end="bottom bottom">
       {/* spacer: relative h-[700vh] */}
       <section className="relative h-[700vh]">
         {/* pin: sticky top-0 h-screen flex col justify-center */}
