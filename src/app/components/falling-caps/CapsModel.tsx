@@ -64,7 +64,7 @@ export const CapsModel = () => {
   const innerRef = React.useRef<THREE.Group>(null);
   const { width } = useThree((state) => state.viewport);
   // NOTE: You need to place the Cap.glb file in public/models/Cap.glb
-  const { nodes, materials } = useGLTF("/models/Cap.glb") as GLTFResult;
+  const { nodes, materials } = useGLTF("/models/Cap.glb") as unknown as GLTFResult;
 
   const clonedMaterials: {
     "m_Cap-v2": THREE.MeshStandardMaterial;
