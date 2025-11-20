@@ -81,11 +81,16 @@ export default function SectionIntro() {
   return (
     <Scrollytelling.Root end="bottom bottom">
       {/* Spacer: altura grande para criar espaço de scroll */}
-      <section className="relative h-[700vh]">
+      <section 
+        className="relative h-[700vh]"
+        style={{
+          background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.7) 15%, rgba(0, 0, 0, 0.85) 30%, rgba(0, 0, 0, 0.95) 50%, rgb(0, 0, 0) 100%)'
+        }}
+      >
         {/* Pin: conteúdo fixo durante o scroll */}
         <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
           {/* Overlay de gradiente */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/95" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/95 z-0" />
 
           <div className="relative max-w-5xl mx-auto px-6 py-24 md:py-32 z-10">
             {/* Label superior */}
