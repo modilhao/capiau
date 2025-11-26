@@ -7,8 +7,8 @@
     margin: 0;
     padding: 0;
     font-family: var(--font-inter), "Inter", system-ui, sans-serif;
-    background-color: #020617; /* fundo escuro */
-    color: #e5e7eb;            /* texto claro */
+    background-color: #5BBDB4; /* fundo turquesa */
+    color: #000000;            /* texto preto */
   }
 }
 /* Camada do cursor */
@@ -33,7 +33,7 @@
 
 /* Texto grande do hover */
 .cursor-hover-text {
-  color: #f9fafb; /* quase branco */
+  color: #000000; /* preto */
   font-family: var(--font-inter, system-ui, sans-serif);
   font-size: clamp(3rem, 8vw, 7rem);
   font-weight: 400;

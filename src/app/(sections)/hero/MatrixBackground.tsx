@@ -86,8 +86,8 @@ export default function MatrixBackground({ capiauProgress = 0 }: MatrixBackgroun
     // Função de animação
     const animate = () => {
       // Desenhar retângulo semi-transparente para criar trail premium
-      // Aumentado para 0.3 para escurecer mais o fundo e limpar o rastro mais rápido
-      ctx.fillStyle = "rgba(0, 0, 0, 0.3)"; 
+      // Ajustado para combinar com background turquesa
+      ctx.fillStyle = "rgba(91, 189, 180, 0.3)"; 
       ctx.fillRect(0, 0, width, height);
 
       // Configurar fonte (única configuração global necessária)
@@ -132,14 +132,14 @@ export default function MatrixBackground({ capiauProgress = 0 }: MatrixBackgroun
              // Se ainda não começou a transição desta letra, desenha normal aqui
              if (letterProgress <= 0) {
                 const char = grid[y][x];
-                ctx.shadowColor = "rgba(255, 255, 255, 0.22)";
+                ctx.shadowColor = "rgba(239, 213, 13, 0.3)";
                 ctx.shadowBlur = 3;
                 const isDim = Math.random() < 0.35;
-                // Opacidade reduzida para compensar container 100% visível
-                const baseAlpha = 0.12 + Math.random() * 0.15;
+                // Opacidade ajustada para amarelo
+                const baseAlpha = 0.5 + Math.random() * 0.3;
                 ctx.fillStyle = isDim
-                    ? `rgba(200, 200, 200, ${baseAlpha * 0.6})`
-                    : `rgba(245, 245, 245, ${baseAlpha})`;
+                    ? `rgba(239, 213, 13, ${baseAlpha * 0.6})`
+                    : `rgba(239, 213, 13, ${baseAlpha})`;
                 ctx.fillText(char, px, py);
              }
              
@@ -148,14 +148,14 @@ export default function MatrixBackground({ capiauProgress = 0 }: MatrixBackgroun
 
           // Área normal do matrix
           const char = grid[y][x];
-          ctx.shadowColor = "rgba(255, 255, 255, 0.22)";
+          ctx.shadowColor = "rgba(239, 213, 13, 0.3)";
           ctx.shadowBlur = 3;
           const isDim = Math.random() < 0.35;
-          // Opacidade reduzida para compensar container 100% visível
-          const baseAlpha = 0.12 + Math.random() * 0.15;
+          // Opacidade ajustada para amarelo
+          const baseAlpha = 0.5 + Math.random() * 0.3;
           ctx.fillStyle = isDim
-            ? `rgba(200, 200, 200, ${baseAlpha * 0.6})`
-            : `rgba(245, 245, 245, ${baseAlpha})`;
+            ? `rgba(239, 213, 13, ${baseAlpha * 0.6})`
+            : `rgba(239, 213, 13, ${baseAlpha})`;
           
           ctx.fillText(char, px, py);
 
@@ -188,19 +188,19 @@ export default function MatrixBackground({ capiauProgress = 0 }: MatrixBackgroun
                     // 1. Glow (Screen mode) - Desenhado separadamente "atrás"
                     ctx.save();
                     ctx.globalCompositeOperation = "screen";
-                    ctx.shadowColor = "rgba(255, 255, 255, 1)";
+                    ctx.shadowColor = "rgba(0, 0, 0, 0.8)";
                     ctx.shadowBlur = 40; // Glow muito forte e difuso
-                    ctx.fillStyle = "rgba(255, 255, 255, 0.0)"; // Texto invisível, só a sombra/glow aparece
+                    ctx.fillStyle = "rgba(0, 0, 0, 0.0)"; // Texto invisível, só a sombra/glow aparece
                     ctx.fillText(char, px, py);
                     ctx.restore();
 
-                    // 2. Texto Sólido (Source Over) - Branco Puro na frente
+                    // 2. Texto Sólido (Source Over) - Preto na frente
                     ctx.save();
                     ctx.globalCompositeOperation = "source-over";
                     ctx.font = `bold ${fontSize}px monospace`; // Fonte Bold para mais impacto e brilho
                     ctx.shadowColor = "transparent"; // Sem shadow no texto principal para não borrar
                     ctx.shadowBlur = 0;
-                    ctx.fillStyle = "#FFFFFF"; // Branco sólido
+                    ctx.fillStyle = "#000000"; // Preto sólido
                     ctx.fillText(char, px, py);
                     ctx.restore();
 
@@ -211,9 +211,9 @@ export default function MatrixBackground({ capiauProgress = 0 }: MatrixBackgroun
                     // Usar bold também na transição para evitar "pulo" de peso
                     ctx.font = `bold ${fontSize}px monospace`; 
                     
-                    ctx.shadowColor = `rgba(255, 255, 255, ${letterProgress})`;
+                    ctx.shadowColor = `rgba(0, 0, 0, ${letterProgress * 0.8})`;
                     ctx.shadowBlur = 5 + (letterProgress * 15);
-                    ctx.fillStyle = `rgba(255, 255, 255, ${transitionAlpha})`;
+                    ctx.fillStyle = `rgba(0, 0, 0, ${transitionAlpha})`;
                     ctx.fillText(char, px, py);
                 }
             }

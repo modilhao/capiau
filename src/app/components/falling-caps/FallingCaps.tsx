@@ -66,7 +66,7 @@ export const FallingCaps = () => {
           </div>
 
           {/* paragraph: typography and positioning */}
-          <p className="relative z-10 text-[min(17px,5vw)] md:text-[min(56px,5vw)] font-black max-w-max mx-auto capitalize leading-tight pointer-events-none text-center">
+          <p className="relative z-10 text-[min(17px,5vw)] md:text-[min(56px,5vw)] font-black max-w-max mx-auto capitalize leading-tight pointer-events-none text-center text-black">
             <Scrollytelling.Stagger
               overlap={0}
               tween={{

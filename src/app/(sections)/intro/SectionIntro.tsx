@@ -80,13 +80,13 @@ export default function SectionIntro() {
       <section 
         className="relative h-[700vh]"
         style={{
-          background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.7) 15%, rgba(0, 0, 0, 0.85) 30%, rgba(0, 0, 0, 0.95) 50%, rgb(0, 0, 0) 100%)'
+          background: 'linear-gradient(to bottom, rgb(91, 189, 180) 0%, rgba(91, 189, 180, 0.98) 5%, rgba(91, 189, 180, 0.95) 15%, rgba(91, 189, 180, 0.9) 30%, rgba(91, 189, 180, 0.85) 50%, rgb(91, 189, 180) 100%)'
         }}
       >
         {/* Pin: conteúdo fixo durante o scroll */}
         <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
           {/* Overlay de gradiente */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/95 z-0" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-[#5BBDB4]/30 to-[#5BBDB4]/80 z-0" />
 
           <div className="relative max-w-5xl mx-auto px-6 py-24 md:py-32 z-10 text-center">
             {/* Título principal - animação palavra por palavra */}
@@ -122,7 +122,7 @@ export default function SectionIntro() {
 
             {/* Subtítulo - animação palavra por palavra (começa depois) */}
             <p
-              className="mt-8 text-lg md:text-xl lg:text-2xl text-muted font-normal"
+              className="mt-8 text-lg md:text-xl lg:text-2xl text-black font-normal"
               style={{
                 fontFamily: "var(--font-montserrat), sans-serif",
                 letterSpacing: "0.01em",

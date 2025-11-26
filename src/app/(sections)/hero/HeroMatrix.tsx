@@ -13,13 +13,15 @@ export default function HeroMatrix() {
   // Refs e estado para scroll indicator
   const scrollIndicatorRef = useRef<HTMLDivElement | null>(null);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const animationCompletedRef = useRef(false); // Flag para garantir que animação não seja revertida
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  // Animação inicial do CAPIAU - executa apenas uma vez
   useEffect(() => {
-    if (!mounted) return;
+    if (!mounted || animationCompletedRef.current) return;
 
     const ctx = gsap.context(() => {
       // Animação inicial de entrada (on load)
@@ -40,6 +42,11 @@ export default function HeroMatrix() {
           ease: "power2.inOut",
           onUpdate: function () {
             setCapiauProgress(this.progress());
+          },
+          onComplete: function () {
+            // Garantir que progresso fique em 1 e marcar como completo
+            setCapiauProgress(1);
+            animationCompletedRef.current = true;
           },
         }
       );
@@ -67,39 +74,44 @@ export default function HeroMatrix() {
           ease: "power2.inOut",
         });
       }
-
-      // Detectar scroll e esconder o indicator
-      const handleScroll = () => {
-        // Usar requestAnimationFrame para melhor performance com Lenis
-        requestAnimationFrame(() => {
-          if (window.scrollY > 50 && !hasScrolled) {
-            setHasScrolled(true);
-            if (scrollIndicatorRef.current) {
-              gsap.to(scrollIndicatorRef.current, {
-                opacity: 0,
-                y: -20,
-                duration: 0.5,
-                ease: "power2.in",
-                onComplete: () => {
-                  if (scrollIndicatorRef.current) {
-                    scrollIndicatorRef.current.style.display = "none";
-                  }
-                },
-              });
-            }
-          }
-        });
-      };
-
-      window.addEventListener("scroll", handleScroll, { passive: true });
-
-      return () => {
-        window.removeEventListener("scroll", handleScroll);
-      };
     }, containerRef);
 
+    // Não fazer cleanup/revert aqui - deixar a animação persistir
     return () => {
-      ctx.revert();
+      // Não fazer ctx.revert() para manter a animação
+    };
+  }, [mounted]); // Remover hasScrolled das dependências
+
+  // Handler de scroll separado - não interfere na animação
+  useEffect(() => {
+    if (!mounted) return;
+
+    const handleScroll = () => {
+      // Usar requestAnimationFrame para melhor performance com Lenis
+      requestAnimationFrame(() => {
+        if (window.scrollY > 50 && !hasScrolled) {
+          setHasScrolled(true);
+          if (scrollIndicatorRef.current) {
+            gsap.to(scrollIndicatorRef.current, {
+              opacity: 0,
+              y: -20,
+              duration: 0.5,
+              ease: "power2.in",
+              onComplete: () => {
+                if (scrollIndicatorRef.current) {
+                  scrollIndicatorRef.current.style.display = "none";
+                }
+              },
+            });
+          }
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [mounted, hasScrolled]);
 
@@ -109,7 +121,6 @@ export default function HeroMatrix() {
       suppressHydrationWarning
       className="relative min-h-screen flex items-center justify-center bg-background text-foreground"
       >
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80 pointer-events-none" />
       <div
         ref={matrixRef}
         className="absolute inset-0 pointer-events-none opacity-0"
@@ -117,6 +128,8 @@ export default function HeroMatrix() {
       >
         {mounted && <MatrixBackground capiauProgress={capiauProgress} />}
       </div>
+      {/* Gradiente de transição na parte inferior para conectar com a próxima seção */}
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent via-[#5BBDB4]/30 to-[#5BBDB4] pointer-events-none z-[5]" />
 
       {/* 3. Adicionar o JSX na parte inferior (substituir a área de social icons) */}
       {!hasScrolled && (
@@ -124,7 +137,7 @@ export default function HeroMatrix() {
           ref={scrollIndicatorRef}
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 flex flex-col items-center gap-2 pointer-events-none opacity-0"
         >
-          <span className="text-xs md:text-sm uppercase tracking-[0.3em] text-white font-normal drop-shadow-md">
+          <span className="text-xs md:text-sm uppercase tracking-[0.3em] text-black font-normal drop-shadow-md">
             Explore
           </span>
           <div className="scroll-arrow">
@@ -137,7 +150,7 @@ export default function HeroMatrix() {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="text-white drop-shadow-md"
+              className="text-black drop-shadow-md"
             >
               <path d="M12 5v14M19 12l-7 7-7-7" />
             </svg>
