@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import { LayoutMotionClient } from "./(sections)/LayoutMotionClient";
 import CustomCursor from "./components/CustomCursor";
@@ -7,6 +7,12 @@ import CustomCursor from "./components/CustomCursor";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -22,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body
-        className={`${inter.variable} bg-background text-foreground min-h-screen antialiased`}
+        className={`${inter.variable} ${montserrat.variable} bg-background text-foreground min-h-screen antialiased`}
       >
         <CustomCursor />
         <main>

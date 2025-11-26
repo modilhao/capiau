@@ -24,28 +24,24 @@ const splitText = (text: string, wordClass?: string, keyPrefix = "") => {
 export default function SectionIntro() {
   // Dividir o texto principal em linhas
   const lines = [
-    "THE RESULTS-DRIVEN,",
-    "CONVERSATION-LED STUDIO",
-    "BUILT FOR THE NEW INTERNET.",
+    "ELITE THINKERS.",
   ];
 
   const splittedText = useMemo(() => {
     const elements: React.ReactElement[] = [];
     
     lines.forEach((line, lineIdx) => {
-      const isLast = lineIdx === lines.length - 1;
       const wordsArray = line.split(" ");
       
       wordsArray.forEach((word, wordIdx) => {
         const key = `line-${lineIdx}-word-${wordIdx}`;
         const isLastWord = wordIdx === wordsArray.length - 1;
         
-        // Adicionar a palavra com espaço e quebra de linha incluídos
+        // Adicionar a palavra com espaço incluído
         elements.push(
-          <span key={key} className={isLast ? "text-orange-500 font-semibold" : undefined}>
+          <span key={key}>
             {word}
             {!isLastWord && " "}
-            {isLastWord && <br />}
           </span>
         );
       });
@@ -55,7 +51,7 @@ export default function SectionIntro() {
   }, []);
 
   // Texto do subtítulo também dividido
-  const subtitleLines = ["We turn attention into momentum."];
+  const subtitleLines = ["The results-driven, social-first agency you've been looking for."];
   const splittedSubtitle = useMemo(() => {
     const elements: React.ReactElement[] = [];
     
@@ -92,15 +88,17 @@ export default function SectionIntro() {
           {/* Overlay de gradiente */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/95 z-0" />
 
-          <div className="relative max-w-5xl mx-auto px-6 py-24 md:py-32 z-10">
-            {/* Label superior */}
-            <p className="uppercase tracking-[0.25em] text-xs md:text-sm text-muted mb-6">
-              capiau — social-first studio
-            </p>
-
+          <div className="relative max-w-5xl mx-auto px-6 py-24 md:py-32 z-10 text-center">
             {/* Título principal - animação palavra por palavra */}
-            <div className="mt-6 relative inline-block overflow-hidden">
-              <h2 className="text-3xl md:text-5xl lg:text-6xl font-light leading-tight text-foreground">
+            <div className="relative inline-block overflow-hidden">
+              <h2
+                className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[1.1] text-foreground"
+                style={{
+                  fontFamily: "var(--font-montserrat), sans-serif",
+                  letterSpacing: "-0.02em",
+                  fontWeight: 900,
+                }}
+              >
                 <Scrollytelling.Stagger
                   overlap={0.1}
                   tween={{
@@ -124,10 +122,11 @@ export default function SectionIntro() {
 
             {/* Subtítulo - animação palavra por palavra (começa depois) */}
             <p
-              className="mt-8 text-lg md:text-2xl text-muted font-light"
+              className="mt-8 text-lg md:text-xl lg:text-2xl text-muted font-normal"
               style={{
-                fontFamily: "monospace",
-                letterSpacing: "0.05em",
+                fontFamily: "var(--font-montserrat), sans-serif",
+                letterSpacing: "0.01em",
+                fontWeight: 400,
               }}
             >
               <Scrollytelling.Stagger
