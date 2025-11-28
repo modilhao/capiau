@@ -10,11 +10,33 @@ export default function MatrixBackground({ capiauProgress = 0 }: MatrixBackgroun
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationFrameRef = useRef<number | null>(null);
   const progressRef = useRef<number>(0);
+  const isVisibleRef = useRef<boolean>(true); // Controla se a animação deve rodar
 
   // Atualizar ref quando prop mudar (sem re-executar useEffect)
   useEffect(() => {
     progressRef.current = capiauProgress;
   }, [capiauProgress]);
+
+  // IntersectionObserver para pausar animação quando fora da viewport
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisibleRef.current = entry.isIntersecting;
+        });
+      },
+      { threshold: 0.1 } // Pausa quando menos de 10% visível
+    );
+
+    observer.observe(canvas);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -85,6 +107,12 @@ export default function MatrixBackground({ capiauProgress = 0 }: MatrixBackgroun
 
     // Função de animação
     const animate = () => {
+      // Pular animação se não estiver visível (economia de CPU)
+      if (!isVisibleRef.current) {
+        animationFrameRef.current = requestAnimationFrame(animate);
+        return;
+      }
+
       // Desenhar retângulo semi-transparente para criar trail premium
       // Ajustado para combinar com background turquesa
       ctx.fillStyle = "rgba(91, 189, 180, 0.3)"; 

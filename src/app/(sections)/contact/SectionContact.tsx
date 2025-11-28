@@ -21,16 +21,8 @@ export default function SectionContact() {
     ));
   }, []);
 
-  // Texto de chamada dividido em palavras
+  // Texto de chamada
   const callToAction = "Vamos conversar?";
-  const splittedCTA = useMemo(() => {
-    return callToAction.split(" ").map((word, idx) => (
-      <span key={`cta-word-${idx}`}>
-        {word}
-        {idx < callToAction.split(" ").length - 1 && " "}
-      </span>
-    ));
-  }, []);
 
   return (
     <Scrollytelling.Root end="bottom bottom">

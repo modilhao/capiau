@@ -74,17 +74,6 @@ export function useConfetti() {
     });
   }, [fireConfetti]);
 
-  // Explosão do topo (chuva de confetes)
-  const fireTopRain = useCallback(() => {
-    fireConfetti({
-      particleCount: 200,
-      spread: 180,
-      origin: { x: 0.5, y: 0 },
-      gravity: 0.8,
-      ticks: 300,
-    });
-  }, [fireConfetti]);
-
   // Explosão final épica
   const fireFinale = useCallback(() => {
     const duration = 1500;
@@ -128,7 +117,6 @@ export function useConfetti() {
     fireConfetti,
     fireCenterBurst,
     fireSideBurst,
-    fireTopRain,
     fireFinale,
     fireOnce,
     resetFired,
