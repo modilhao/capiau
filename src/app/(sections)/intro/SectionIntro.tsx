@@ -3,40 +3,20 @@
 import { useMemo } from "react";
 import * as Scrollytelling from "@bsmnt/scrollytelling";
 
-const splitText = (text: string, wordClass?: string, keyPrefix = "") => {
-  const wordsArray = text.split(" ");
-
-  const htmlWords = wordsArray.map((word, i) => {
-    const hasLineBreak = word.includes("\n");
-
-    return (
-      <span className={wordClass} key={`${keyPrefix}-${i}`}>
-        {word}
-        {i < wordsArray.length - 1 && " "}
-        {hasLineBreak && <br />}
-      </span>
-    );
-  });
-
-  return htmlWords;
-};
-
 export default function SectionIntro() {
   // Dividir o texto principal em linhas
-  const lines = [
-    "ELITE THINKERS.",
-  ];
+  const lines = ["ELITE THINKERS."];
 
   const splittedText = useMemo(() => {
     const elements: React.ReactElement[] = [];
-    
+
     lines.forEach((line, lineIdx) => {
       const wordsArray = line.split(" ");
-      
+
       wordsArray.forEach((word, wordIdx) => {
         const key = `line-${lineIdx}-word-${wordIdx}`;
         const isLastWord = wordIdx === wordsArray.length - 1;
-        
+
         // Adicionar a palavra com espaço incluído
         elements.push(
           <span key={key}>
@@ -46,29 +26,53 @@ export default function SectionIntro() {
         );
       });
     });
-    
+
     return elements;
   }, []);
 
-  // Texto do subtítulo também dividido
-  const subtitleLines = ["The results-driven, social-first agency you've been looking for."];
+  // Texto do subtítulo dividido em CARACTERES (como o email no SectionContact)
+  const subtitle = "The results-driven, social-first agency you've been looking for.";
+  
+  // Palavras que terão destaque visual
+  const highlightWords = ["results-driven,", "social-first"];
+  
   const splittedSubtitle = useMemo(() => {
+    // Dividir em palavras primeiro para poder destacar
+    const words = subtitle.split(" ");
     const elements: React.ReactElement[] = [];
     
-    subtitleLines.forEach((line, lineIdx) => {
-      const wordsArray = line.split(" ");
-      wordsArray.forEach((word, wordIdx) => {
-        const key = `subtitle-${lineIdx}-word-${wordIdx}`;
-        const isLastWord = wordIdx === wordsArray.length - 1;
-        
-        // Adicionar a palavra com espaço incluído
+    words.forEach((word, wordIdx) => {
+      const isHighlight = highlightWords.includes(word);
+      
+      // Dividir cada palavra em caracteres
+      word.split("").forEach((char, charIdx) => {
         elements.push(
-          <span key={key}>
-            {word}
-            {!isLastWord && " "}
+          <span
+            key={`subtitle-word-${wordIdx}-char-${charIdx}`}
+            className={isHighlight ? "text-[#1a1a1a]" : ""}
+            style={{
+              display: "inline-block",
+              ...(isHighlight && { 
+                textShadow: "0 0 40px rgba(0,0,0,0.15)"
+              })
+            }}
+          >
+            {char}
           </span>
         );
       });
+      
+      // Adicionar espaço entre palavras (também como span para animar)
+      if (wordIdx < words.length - 1) {
+        elements.push(
+          <span
+            key={`subtitle-space-${wordIdx}`}
+            style={{ display: "inline-block" }}
+          >
+            &nbsp;
+          </span>
+        );
+      }
     });
     
     return elements;
@@ -120,34 +124,47 @@ export default function SectionIntro() {
               </h2>
             </div>
 
-            {/* Subtítulo - animação palavra por palavra (começa depois) */}
-            <p
-              className="mt-8 text-lg md:text-xl lg:text-2xl text-black font-normal"
-              style={{
-                fontFamily: "var(--font-montserrat), sans-serif",
-                letterSpacing: "0.01em",
-                fontWeight: 400,
-              }}
+            {/* Subtítulo - animação caractere por caractere com efeito 3D */}
+            <div 
+              className="mt-10 md:mt-14 relative overflow-hidden"
+              style={{ perspective: "1000px" }}
             >
-              <Scrollytelling.Stagger
-                overlap={0.1}
-                tween={{
-                  start: 40, // Começa um pouco depois do título
-                  end: 80,
-                  fromTo: [
-                    {
-                      opacity: 0.2,
-                    },
-                    {
-                      opacity: 1,
-                      ease: "power2.out",
-                    },
-                  ],
+              <p
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-black/90 leading-[1.15] md:leading-[1.2]"
+                style={{
+                  fontFamily: "var(--font-montserrat), sans-serif",
+                  letterSpacing: "-0.01em",
+                  fontWeight: 800,
+                  maxWidth: "90%",
+                  margin: "0 auto",
                 }}
               >
-                {splittedSubtitle}
-              </Scrollytelling.Stagger>
-            </p>
+                <Scrollytelling.Stagger
+                  overlap={0.4}
+                  tween={{
+                    start: 25,
+                    end: 75,
+                    fromTo: [
+                      {
+                        opacity: 0,
+                        y: 60,
+                        rotateX: -90,
+                        scale: 0.8,
+                      },
+                      {
+                        opacity: 1,
+                        y: 0,
+                        rotateX: 0,
+                        scale: 1,
+                        ease: "back.out(1.7)",
+                      },
+                    ],
+                  }}
+                >
+                  {splittedSubtitle}
+                </Scrollytelling.Stagger>
+              </p>
+            </div>
           </div>
         </div>
       </section>
