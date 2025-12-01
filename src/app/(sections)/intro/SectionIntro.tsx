@@ -30,47 +30,60 @@ export default function SectionIntro() {
     return elements;
   }, []);
 
-  // Texto do subtítulo dividido em CARACTERES (como o email no SectionContact)
-  const subtitle = "The results-driven, social-first agency you've been looking for.";
+  // Texto do subtítulo dividido em linhas específicas (sem quebrar palavras)
+  const subtitleLines = [
+    "The results-driven,",
+    "social-first agency",
+    "you've been looking for",
+  ];
   
   // Palavras que terão destaque visual
   const highlightWords = ["results-driven,", "social-first"];
   
   const splittedSubtitle = useMemo(() => {
-    // Dividir em palavras primeiro para poder destacar
-    const words = subtitle.split(" ");
     const elements: React.ReactElement[] = [];
     
-    words.forEach((word, wordIdx) => {
-      const isHighlight = highlightWords.includes(word);
+    subtitleLines.forEach((line, lineIdx) => {
+      const words = line.split(" ");
       
-      // Dividir cada palavra em caracteres
-      word.split("").forEach((char, charIdx) => {
-        elements.push(
-          <span
-            key={`subtitle-word-${wordIdx}-char-${charIdx}`}
-            className={isHighlight ? "text-[#1a1a1a]" : ""}
-            style={{
-              display: "inline-block",
-              ...(isHighlight && { 
-                textShadow: "0 0 40px rgba(0,0,0,0.15)"
-              })
-            }}
-          >
-            {char}
-          </span>
-        );
+      words.forEach((word, wordIdx) => {
+        const isHighlight = highlightWords.includes(word);
+        
+        // Dividir cada palavra em caracteres
+        word.split("").forEach((char, charIdx) => {
+          elements.push(
+            <span
+              key={`subtitle-line-${lineIdx}-word-${wordIdx}-char-${charIdx}`}
+              className={isHighlight ? "text-[#1a1a1a]" : ""}
+              style={{
+                display: "inline-block",
+                ...(isHighlight && { 
+                  textShadow: "0 0 40px rgba(0,0,0,0.15)"
+                })
+              }}
+            >
+              {char}
+            </span>
+          );
+        });
+        
+        // Adicionar espaço entre palavras (também como span para animar)
+        if (wordIdx < words.length - 1) {
+          elements.push(
+            <span
+              key={`subtitle-line-${lineIdx}-space-${wordIdx}`}
+              style={{ display: "inline-block" }}
+            >
+              &nbsp;
+            </span>
+          );
+        }
       });
       
-      // Adicionar espaço entre palavras (também como span para animar)
-      if (wordIdx < words.length - 1) {
+      // Adicionar quebra de linha entre linhas (exceto na última)
+      if (lineIdx < subtitleLines.length - 1) {
         elements.push(
-          <span
-            key={`subtitle-space-${wordIdx}`}
-            style={{ display: "inline-block" }}
-          >
-            &nbsp;
-          </span>
+          <br key={`subtitle-break-${lineIdx}`} />
         );
       }
     });

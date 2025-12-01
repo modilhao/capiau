@@ -9,7 +9,7 @@ export default function SectionContact() {
     useConfetti();
 
   // Email dividido em caracteres para animação
-  const email = "time@capiau.org";
+  const email = "team@capiau.org";
   const splittedEmail = useMemo(() => {
     return email.split("").map((char, idx) => (
       <span
@@ -22,7 +22,7 @@ export default function SectionContact() {
   }, []);
 
   // Texto de chamada
-  const callToAction = "Vamos conversar?";
+  const callToAction = "Let's Talk?";
 
   return (
     <Scrollytelling.Root end="bottom bottom">
@@ -56,7 +56,7 @@ export default function SectionContact() {
           {/* Overlay de gradiente */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-[#5BBDB4]/30 to-[#5BBDB4]/80 z-0" />
 
-          <div className="relative max-w-5xl mx-auto px-6 py-24 md:py-32 z-10 text-center">
+          <div className="relative max-w-5xl mx-auto px-6 z-10 text-center flex flex-col justify-center items-center">
             {/* Texto de chamada */}
             <Scrollytelling.Animation
               tween={{
@@ -122,35 +122,6 @@ export default function SectionContact() {
                 </Scrollytelling.Stagger>
               </a>
             </div>
-
-            {/* Subtexto - aparece no final */}
-            <Scrollytelling.Animation
-              tween={{
-                start: 75,
-                end: 95,
-                fromTo: [
-                  {
-                    opacity: 0,
-                    y: 30,
-                  },
-                  {
-                    opacity: 1,
-                    y: 0,
-                    ease: "power2.out",
-                  },
-                ],
-              }}
-            >
-              <p
-                className="mt-12 text-sm md:text-base text-black/60"
-                style={{
-                  fontFamily: "var(--font-montserrat), sans-serif",
-                  fontWeight: 400,
-                }}
-              >
-                Estamos ansiosos para ouvir suas ideias ✨
-              </p>
-            </Scrollytelling.Animation>
           </div>
         </div>
       </section>
