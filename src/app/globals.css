@@ -101,3 +101,34 @@
     opacity: 0;
   }
 }
+
+/* Proteção contra quebras indesejadas em textos importantes */
+@layer utilities {
+  /* Prevenir quebra de palavras em emails e textos importantes */
+  .no-word-break {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    hyphens: none;
+    white-space: nowrap;
+  }
+  
+  /* Para textos que podem quebrar mas não no meio de palavras */
+  .preserve-words {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    hyphens: none;
+  }
+}
+
+/* Media queries para melhor responsividade mobile */
+@layer base {
+  @media (max-width: 640px) {
+    /* Ajustes específicos para mobile */
+    body {
+      -webkit-text-size-adjust: 100%;
+      -moz-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+  }
+}

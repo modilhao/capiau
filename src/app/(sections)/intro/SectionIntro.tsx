@@ -46,39 +46,48 @@ export default function SectionIntro() {
     subtitleLines.forEach((line, lineIdx) => {
       const words = line.split(" ");
       
-      words.forEach((word, wordIdx) => {
-        const isHighlight = highlightWords.includes(word);
-        
-        // Dividir cada palavra em caracteres
-        word.split("").forEach((char, charIdx) => {
-          elements.push(
-            <span
-              key={`subtitle-line-${lineIdx}-word-${wordIdx}-char-${charIdx}`}
-              className={isHighlight ? "text-[#1a1a1a]" : ""}
-              style={{
-                display: "inline-block",
-                ...(isHighlight && { 
-                  textShadow: "0 0 40px rgba(0,0,0,0.15)"
-                })
-              }}
-            >
-              {char}
-            </span>
-          );
-        });
-        
-        // Adicionar espaço entre palavras (também como span para animar)
-        if (wordIdx < words.length - 1) {
-          elements.push(
-            <span
-              key={`subtitle-line-${lineIdx}-space-${wordIdx}`}
-              style={{ display: "inline-block" }}
-            >
-              &nbsp;
-            </span>
-          );
-        }
-      });
+      // Agrupar cada linha em um container para evitar quebra no meio
+      elements.push(
+        <span
+          key={`subtitle-line-wrapper-${lineIdx}`}
+          style={{
+            display: "inline-block",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {words.map((word, wordIdx) => {
+            const isHighlight = highlightWords.includes(word);
+            
+            return (
+              <span
+                key={`subtitle-line-${lineIdx}-word-${wordIdx}`}
+                className={isHighlight ? "text-[#1a1a1a]" : ""}
+                style={{
+                  display: "inline-block",
+                  whiteSpace: "nowrap",
+                  ...(isHighlight && { 
+                    textShadow: "0 0 40px rgba(0,0,0,0.15)"
+                  })
+                }}
+              >
+                {word.split("").map((char, charIdx) => (
+                  <span
+                    key={`subtitle-line-${lineIdx}-word-${wordIdx}-char-${charIdx}`}
+                    style={{
+                      display: "inline-block",
+                    }}
+                  >
+                    {char}
+                  </span>
+                ))}
+                {wordIdx < words.length - 1 && (
+                  <span style={{ display: "inline-block" }}>&nbsp;</span>
+                )}
+              </span>
+            );
+          })}
+        </span>
+      );
       
       // Adicionar quebra de linha entre linhas (exceto na última)
       if (lineIdx < subtitleLines.length - 1) {
@@ -105,15 +114,18 @@ export default function SectionIntro() {
           {/* Overlay de gradiente */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-[#5BBDB4]/30 to-[#5BBDB4]/80 z-0" />
 
-          <div className="relative max-w-5xl mx-auto px-6 py-24 md:py-32 z-10 text-center">
+          <div className="relative max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-24 md:py-32 z-10 text-center">
             {/* Título principal - animação palavra por palavra */}
-            <div className="relative inline-block overflow-hidden">
+            <div className="relative inline-block overflow-hidden max-w-full">
               <h2
-                className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[1.1] text-foreground"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[1.1] text-foreground"
                 style={{
                   fontFamily: "var(--font-montserrat), sans-serif",
                   letterSpacing: "-0.02em",
                   fontWeight: 900,
+                  wordBreak: "keep-all",
+                  overflowWrap: "normal",
+                  hyphens: "none",
                 }}
               >
                 <Scrollytelling.Stagger
@@ -139,17 +151,21 @@ export default function SectionIntro() {
 
             {/* Subtítulo - animação caractere por caractere com efeito 3D */}
             <div 
-              className="mt-10 md:mt-14 relative overflow-hidden"
+              className="mt-6 sm:mt-10 md:mt-14 relative"
               style={{ perspective: "1000px" }}
             >
               <p
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-black/90 leading-[1.15] md:leading-[1.2]"
+                className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-black/90 leading-[1.15] md:leading-[1.2]"
                 style={{
                   fontFamily: "var(--font-montserrat), sans-serif",
                   letterSpacing: "-0.01em",
                   fontWeight: 800,
-                  maxWidth: "90%",
+                  maxWidth: "100%",
                   margin: "0 auto",
+                  wordBreak: "keep-all",
+                  overflowWrap: "normal",
+                  hyphens: "none",
+                  padding: "0 0.5rem",
                 }}
               >
                 <Scrollytelling.Stagger

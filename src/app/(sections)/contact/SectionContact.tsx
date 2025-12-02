@@ -56,7 +56,7 @@ export default function SectionContact() {
           {/* Overlay de gradiente */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-[#5BBDB4]/30 to-[#5BBDB4]/80 z-0" />
 
-          <div className="relative max-w-5xl mx-auto px-6 z-10 text-center flex flex-col justify-center items-center">
+          <div className="relative max-w-5xl mx-auto px-4 sm:px-6 z-10 text-center flex flex-col justify-center items-center">
             {/* Texto de chamada */}
             <Scrollytelling.Animation
               tween={{
@@ -96,6 +96,9 @@ export default function SectionContact() {
                   fontFamily: "var(--font-montserrat), sans-serif",
                   letterSpacing: "-0.02em",
                   fontWeight: 900,
+                  whiteSpace: "nowrap",
+                  wordBreak: "keep-all",
+                  overflowWrap: "normal",
                 }}
               >
                 <Scrollytelling.Stagger
