@@ -126,6 +126,20 @@ export default function SectionContact() {
               </a>
             </div>
           </div>
+
+          {/* Footer discreto */}
+          <div className="absolute bottom-8 left-0 right-0 z-10">
+            <p
+              className="text-xs md:text-sm text-black/60 text-center"
+              style={{
+                fontFamily: "var(--font-montserrat), sans-serif",
+                fontWeight: 400,
+                letterSpacing: "0.02em",
+              }}
+            >
+              capiau associados ltda
+            </p>
+          </div>
         </div>
       </section>
     </Scrollytelling.Root>
