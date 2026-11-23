@@ -87,6 +87,9 @@ export const metadata: Metadata = {
   },
 };
 
+// Snippet fornecido pela Impact.com, mantido literal (verificação da plataforma lê o HTML do <head>).
+const IMPACT_UTT_SNIPPET = `(function(i,m,p,a,c,t){c.ire_o=p;c[p]=c[p]||function(){(c[p].a=c[p].a||[]).push(arguments)};t=a.createElement(m);var z=a.getElementsByTagName(m)[0];t.async=1;t.src=i;z.parentNode.insertBefore(t,z)})('https://utt.impactcdn.com/P-A8302331-0783-42e4-8428-a4530d3921851.js','script','impactStat',document,window);impactStat('transformLinks');impactStat('trackImpression');`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -94,6 +97,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Impact.com Universal Tracking Tag — pedido Denis (23/11/2026) */}
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{ __html: IMPACT_UTT_SNIPPET }}
+        />
+      </head>
       <body
         className={`${inter.variable} ${montserrat.variable} bg-background text-foreground min-h-screen antialiased`}
       >
