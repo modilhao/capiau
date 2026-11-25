@@ -9,7 +9,7 @@ export default function SectionContact() {
     useConfetti();
 
   // Email dividido em caracteres para animação
-  const email = "team@capiau.org";
+  const email = "contato@capiau.org";
   const splittedEmail = useMemo(() => {
     return email.split("").map((char, idx) => (
       <span
