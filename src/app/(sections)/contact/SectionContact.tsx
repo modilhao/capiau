@@ -91,7 +91,7 @@ export default function SectionContact() {
             <div className="relative inline-block overflow-hidden">
               <a
                 href={`mailto:${email}`}
-                className="block text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[1.1] text-foreground hover:opacity-80 transition-opacity duration-300"
+                className="block text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[1.1] text-foreground hover:opacity-80 transition-opacity duration-300"
                 style={{
                   fontFamily: "var(--font-montserrat), sans-serif",
                   letterSpacing: "-0.02em",
