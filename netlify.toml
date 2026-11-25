@@ -1,0 +1,8 @@
+# Deploy no Netlify a partir do GitHub.
+# O build gera o site estático em out/ (next.config.ts usa output: "export").
+[build]
+  command = "npm run build"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "20"
