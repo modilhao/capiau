@@ -11,7 +11,7 @@ export function StructuredData() {
     logo: "https://capiau.org/og-image.jpg",
     description:
       "The results-driven, social-first agency you've been looking for. Elite thinkers specializing in growth, influencer marketing, and digital marketing.",
-    email: "team@capiau.org",
+    email: "contato@capiau.org",
     areaServed: "World",
     serviceType: ["Growth Marketing", "Influencer Marketing", "Digital Marketing", "Social Media Marketing"],
     sameAs: [
